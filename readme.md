@@ -46,6 +46,29 @@ make docs_generate
 ```
 
 Formats the documentation code using swag.
-```
+```sh
 make docs_format
 ```
+
+### Migrations
+
+Run migrations
+```sh
+make migrate
+```
+
+Add new migration
+```sh
+ make add_migration name=mew_migration_name
+```
+
+Rollback all migrations
+```sh
+make migrate_down
+```
+
+Rollback a specific migration
+```sh
+make migrate_down steps=1
+```
+
