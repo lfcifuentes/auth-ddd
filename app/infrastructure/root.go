@@ -1,0 +1,35 @@
+package infrastructure
+
+import (
+	"log/slog"
+
+	"github.com/gin-gonic/gin"
+	"github.com/lfcifuentes/auth-ddd/app/infrastructure/http/middleware"
+	"github.com/lfcifuentes/auth-ddd/app/internal/adapters/pgsql"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
+)
+
+// Application encapsula el router y el adaptador de la base de datos.
+type Application struct {
+	Router    *gin.Engine
+	DbAdapter *pgsql.DBAdapter
+}
+
+func NewApplication(dbAdapter *pgsql.DBAdapter) *Application {
+	slog.Info("Creating application instance", "event", "creating_application_instance")
+	router := gin.New()
+	router.UseRawPath = false
+	router.RedirectTrailingSlash = false
+
+	// add middlewares
+	router = middleware.StartAllMiddlewares(router)
+
+	router.GET("/docs/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	slog.Info("Application instance created successfully", "event", "created_application_instance")
+
+	return &Application{
+		Router:    router,
+		DbAdapter: dbAdapter,
+	}
+}

@@ -10,19 +10,19 @@ import (
 	"github.com/spf13/viper"
 )
 
-// @title			Simple Auth API documentation
-// @version		1.0
-// @description	This is a simple auth API documentation.
-// @termsOfService	http://swagger.io/terms/
-// @contact.name	Luis Cifuentes
-// @contact.url	https://lfcifuentes.netlify.app
-// @contact.email	lfcifuentes28@gmail.com
-// @license.name	Apache 2.0
-// @license.url	http://www.apache.org/licenses/LICENSE-2.0.html
-// @host
-// @Accept			json
-// @Produce		json
-// @BasePath		/
+//	@title			Simple Auth API documentation
+//	@version		1.0
+//	@description	This is a simple auth API documentation.
+//	@termsOfService	http://swagger.io/terms/
+//	@contact.name	Luis Cifuentes
+//	@contact.url	https://lfcifuentes.netlify.app
+//	@contact.email	lfcifuentes28@gmail.com
+//	@license.name	Apache 2.0
+//	@license.url	http://www.apache.org/licenses/LICENSE-2.0.html
+//	@host
+//	@Accept		json
+//	@Produce	json
+//	@BasePath	/
 
 func main() {
 	// Create a new logger
