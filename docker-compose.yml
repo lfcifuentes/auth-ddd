@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+
+  postgres:
+    image: postgres:13
+    container_name: auth-ddd-postgres
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "{DB_PORT}:{DB_PORT}"
+
+volumes:
+  postgres_data:

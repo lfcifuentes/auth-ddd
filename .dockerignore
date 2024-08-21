@@ -1,0 +1,8 @@
+.env.*
+.idea
+.git
+*.logs
+.gitattributes
+.gitignore
+README.md
+docker-compose.yml

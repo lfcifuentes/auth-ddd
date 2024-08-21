@@ -1,0 +1,19 @@
+basePath: /
+consumes:
+- application/json
+info:
+  contact:
+    email: lfcifuentes28@gmail.com
+    name: Luis Cifuentes
+    url: https://lfcifuentes.netlify.app
+  description: This is a simple auth API documentation.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Simple Auth API documentation
+  version: "1.0"
+paths: {}
+produces:
+- application/json
+swagger: "2.0"
