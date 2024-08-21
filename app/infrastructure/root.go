@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/lfcifuentes/auth-ddd/app/infrastructure/http/middleware"
 	"github.com/lfcifuentes/auth-ddd/app/internal/adapters/pgsql"
+	"github.com/lfcifuentes/auth-ddd/app/internal/adapters/validator"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
@@ -14,6 +15,7 @@ import (
 type Application struct {
 	Router    *gin.Engine
 	DbAdapter *pgsql.DBAdapter
+	Validator *validator.ValidatorAdapter
 }
 
 func NewApplication(dbAdapter *pgsql.DBAdapter) *Application {
@@ -26,10 +28,16 @@ func NewApplication(dbAdapter *pgsql.DBAdapter) *Application {
 	router = middleware.StartAllMiddlewares(router)
 
 	router.GET("/docs/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
+	slog.Info("Creating validator instance", "event", "creating_validator_instance")
+	validatorInstance := validator.NewValidatorAdapter()
+	slog.Info("Validator instance created successfully", "event", "created_validator_instance")
+
 	slog.Info("Application instance created successfully", "event", "created_application_instance")
 
 	return &Application{
 		Router:    router,
 		DbAdapter: dbAdapter,
+		Validator: validatorInstance,
 	}
 }
