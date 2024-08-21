@@ -2,6 +2,14 @@
 
 Example project of an authentication system using Go
 
+## Tech Stack
+ - [Go 1.23](https://go.dev/doc/install)
+ - [Gin](https://gin-gonic.com/)
+ - [Postgres](https://www.postgresql.org)
+ - [Docker](https://www.docker.com)
+   - [Docker Compose](https://docs.docker.com/compose/)
+
+
 ## Installation
 
 Follow these steps to install the project:
