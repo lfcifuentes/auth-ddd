@@ -2,8 +2,8 @@ package pgsql
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
-	"log"
 
 	_ "github.com/lib/pq"
 	"github.com/spf13/viper"
@@ -38,12 +38,13 @@ func (db *DBAdapter) Ping() error {
 	return db.DB.Ping()
 }
 
-func (db *DBAdapter) Close() {
+func (db *DBAdapter) Close() error {
 	if db.DB != nil {
 		if err := db.DB.Close(); err != nil {
-			log.Println("Error al desconectar de PsqlServer:", err)
+			return errors.New("Error al desconectar de PsqlServer")
 		}
 	}
+	return nil
 }
 
 func (db *DBAdapter) GetDB() *sql.DB {
