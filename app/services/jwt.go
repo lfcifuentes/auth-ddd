@@ -32,15 +32,16 @@ func NewApiJWT() *ApiJWT {
 }
 
 // GenerateJWT generates a JWT token
-func (a *ApiJWT) GenerateJWT(id int) (string, error) {
+func (a *ApiJWT) GenerateJWT(id int) (string, time.Time, error) {
 	key := viper.GetString("APP_KEY")
+	expirationTime := time.Now().Add(24 * time.Hour * 7)
 	claims := CustomClaims{
 		Provider: "AuthApi",
 		User: UserClaim{
 			Id: id,
 		},
 		RegisteredClaims: jwt.RegisteredClaims{
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(24 * time.Hour * 7)),
+			ExpiresAt: jwt.NewNumericDate(expirationTime),
 			IssuedAt:  jwt.NewNumericDate(time.Now()),
 			NotBefore: jwt.NewNumericDate(time.Now()),
 			Issuer:    "AuthApi",
@@ -55,5 +56,5 @@ func (a *ApiJWT) GenerateJWT(id int) (string, error) {
 	mySigningKey := []byte(key)
 	ss, err := token.SignedString(mySigningKey)
 
-	return ss, err
+	return ss, expirationTime, err
 }

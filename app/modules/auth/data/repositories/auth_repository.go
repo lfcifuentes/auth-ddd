@@ -2,6 +2,7 @@ package repositories
 
 import (
 	"errors"
+	"time"
 
 	"github.com/lfcifuentes/auth-ddd/app/internal/adapters/pgsql"
 )
@@ -38,4 +39,13 @@ func (r *AuthRepository) FindByEmail(email string) (*User, error) {
 	}
 
 	return &user, nil
+}
+
+func (r *AuthRepository) SaveToken(id int, token string, expirationTime time.Time) error {
+	_, err := r.DBAdapter.DB.Exec("INSERT INTO tokens (user_id, token, expires_at) VALUES ($1, $2, $3)", id, token, expirationTime)
+	if err != nil {
+		return errors.New("error saving token")
+	}
+
+	return nil
 }

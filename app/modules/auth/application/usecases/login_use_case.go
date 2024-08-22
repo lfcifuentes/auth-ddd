@@ -31,7 +31,17 @@ func (uc *LoginUseCase) Login(email, password string) (interface{}, error) {
 		return nil, errors.New("invalid password")
 	}
 
-	token, err := uc.jwt.GenerateJWT(user.ID)
+	token, expiration, err := uc.jwt.GenerateJWT(user.ID)
+
+	if err != nil {
+		return nil, errors.New("error generating token")
+	}
+
+	err = uc.repo.SaveToken(user.ID, token, expiration)
+
+	if err != nil {
+		return nil, errors.New("error saving token")
+	}
 
 	// Return user data or token as needed
 	return map[string]interface{}{
