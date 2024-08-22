@@ -4,6 +4,7 @@ import (
 	"errors"
 
 	"github.com/lfcifuentes/auth-ddd/app/modules/auth/data/repositories"
+	"github.com/lfcifuentes/auth-ddd/app/modules/auth/data/valueobjects"
 	"github.com/lfcifuentes/auth-ddd/app/services"
 )
 
@@ -21,7 +22,7 @@ func NewLoginUseCase(repo *repositories.AuthRepository) *LoginUseCase {
 	}
 }
 
-func (uc *LoginUseCase) Login(email, password string) (interface{}, error) {
+func (uc *LoginUseCase) Login(email, password string) (*valueobjects.LoginResponse, error) {
 	user, err := uc.repo.FindByEmail(email)
 	if err != nil {
 		return nil, errors.New("user not found")
@@ -44,9 +45,9 @@ func (uc *LoginUseCase) Login(email, password string) (interface{}, error) {
 	}
 
 	// Return user data or token as needed
-	return map[string]interface{}{
-		"token":   token,
-		"user_id": user.ID,
-		"email":   user.Email,
+	return &valueobjects.LoginResponse{
+		AccessToken: token,
+		TokenType:   "Bearer",
+		ExpiresIn:   expiration,
 	}, nil
 }
