@@ -5,20 +5,20 @@ import (
 
 	"github.com/lfcifuentes/auth-ddd/app/modules/auth/data/repositories"
 	"github.com/lfcifuentes/auth-ddd/app/modules/auth/data/valueobjects"
-	"github.com/lfcifuentes/auth-ddd/app/services"
+	"github.com/lfcifuentes/auth-ddd/app/pkg"
 )
 
 type LoginUseCase struct {
 	repo           *repositories.AuthRepository
-	passwordHasher services.PasswordHasher
-	jwt            services.ApiJWT
+	passwordHasher pkg.PasswordHasher
+	jwt            pkg.ApiJWT
 }
 
 func NewLoginUseCase(repo *repositories.AuthRepository) *LoginUseCase {
 	return &LoginUseCase{
 		repo:           repo,
-		passwordHasher: *services.NewPasswordHasher(),
-		jwt:            *services.NewApiJWT(),
+		passwordHasher: *pkg.NewPasswordHasher(),
+		jwt:            *pkg.NewApiJWT(),
 	}
 }
 

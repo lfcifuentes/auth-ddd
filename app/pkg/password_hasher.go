@@ -1,4 +1,4 @@
-package services
+package pkg
 
 import (
 	"github.com/spf13/viper"

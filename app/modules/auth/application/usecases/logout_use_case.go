@@ -4,19 +4,19 @@ import (
 	"errors"
 
 	"github.com/lfcifuentes/auth-ddd/app/modules/auth/data/repositories"
-	"github.com/lfcifuentes/auth-ddd/app/services"
+	"github.com/lfcifuentes/auth-ddd/app/pkg"
 )
 
 type LogoutUseCase struct {
 	repo *repositories.AuthRepository
-	jwt  services.ApiJWT
+	jwt  pkg.ApiJWT
 }
 
 func NewLogoutUseCase(repo *repositories.AuthRepository) *LogoutUseCase {
 	// Add your code here
 	return &LogoutUseCase{
 		repo: repo,
-		jwt:  *services.NewApiJWT(),
+		jwt:  *pkg.NewApiJWT(),
 	}
 }
 

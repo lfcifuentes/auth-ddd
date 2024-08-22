@@ -72,3 +72,40 @@ Rollback a specific migration
 make migrate_down steps=1
 ```
 
+### Project structure
+
+```
+/app
+  /cmd
+    server.go                # Entry point of the application
+  /db
+    /migrations              # Database migrations
+  /infraestructure
+    /http
+      /middleware            # Api Rest Middleware
+      /router                # API base route definitions
+  /internal
+    /adapters
+      /pgsql                 # PostgreSQL database adapter
+      /validator             # Playground Validator adapter
+  /modules
+    /auth
+      /domain
+        /entities
+          user.go            # User entity definition
+        /services
+          auth_services.go   # Domain services for authentication
+      /application
+        /usecases
+          login_usecase.go   # Use case for user login
+      /data
+        /repositories
+          auth_repository.go # Repository for user data
+  /pkg
+    jwt.go                   # JWT utility
+docker-compose               # Docker compose configuration file
+Makefile                     # Makefile with project commands
+README.md                    # Project documentation
+go.mod                       # Go module file
+go.sum                       # Go dependencies file
+```
