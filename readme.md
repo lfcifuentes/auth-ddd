@@ -72,6 +72,18 @@ Rollback a specific migration
 make migrate_down steps=1
 ```
 
+### Testing
+
+Run test
+```sh
+make test
+```
+
+Run test with coverage
+```sh
+make test_coverage
+```
+
 ### Project structure
 
 ```

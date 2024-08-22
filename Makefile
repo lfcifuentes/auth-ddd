@@ -34,3 +34,13 @@ migrate_down:
 	@echo "Reverting $${steps:-all} migrations...";
 	migrate -path app/db/migrations -database "postgres://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)?sslmode=disable" down $${steps:-}
 	@echo "Migration down successfully";
+
+test:
+	@echo "Running tests...";
+	go test -v ./...
+	@echo "Tests passed successfully";
+
+test_coverage:
+	@echo "Running tests with coverage...";
+	go test -coverprofile=coverage.out ./...
+	@echo "Tests passed successfully";
