@@ -1,6 +1,20 @@
 basePath: /
 consumes:
 - application/json
+definitions:
+  gin.H:
+    additionalProperties: {}
+    type: object
+  valueobjects.LoginParams:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
 info:
   contact:
     email: lfcifuentes28@gmail.com
@@ -13,7 +27,72 @@ info:
   termsOfService: http://swagger.io/terms/
   title: Simple Auth API documentation
   version: "1.0"
-paths: {}
+paths:
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Loguear un usuario usado nuestra base de datos
+      parameters:
+      - description: User Credentials
+        in: body
+        name: userCredentials
+        required: true
+        schema:
+          $ref: '#/definitions/valueobjects.LoginParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/gin.H'
+            - properties:
+                data:
+                  type: object
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/gin.H'
+            - properties:
+                data:
+                  type: object
+              type: object
+        "401":
+          description: Unauthorized
+          schema:
+            allOf:
+            - $ref: '#/definitions/gin.H'
+            - properties:
+                data:
+                  type: object
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            allOf:
+            - $ref: '#/definitions/gin.H'
+            - properties:
+                data:
+                  type: object
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/gin.H'
+            - properties:
+                data:
+                  type: object
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Loguear un usuario usado nuestra base de datos
+      tags:
+      - Auth
 produces:
 - application/json
 swagger: "2.0"

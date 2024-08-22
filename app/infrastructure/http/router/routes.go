@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/lfcifuentes/auth-ddd/app/infrastructure"
 	"github.com/lfcifuentes/auth-ddd/app/internal/adapters/pgsql"
+	AuthPresentation "github.com/lfcifuentes/auth-ddd/app/modules/auth/presentation"
 	"github.com/lfcifuentes/auth-ddd/docs"
 	"github.com/spf13/viper"
 )
@@ -21,6 +22,7 @@ func NewRouter(db *pgsql.DBAdapter) *gin.Engine {
 	)
 
 	// Add your code here
+	AuthPresentation.RegisterAuthRoutes(app)
 
 	return app.Router
 
