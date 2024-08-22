@@ -11,4 +11,5 @@ func RegisterAuthRoutes(a *infrastructure.Application) {
 	authGroup := a.Router.Group("/auth")
 
 	authGroup.POST("/login", authServices.Login)
+	authGroup.POST("/logout", authServices.Logout)
 }

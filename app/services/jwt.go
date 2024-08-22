@@ -58,3 +58,33 @@ func (a *ApiJWT) GenerateJWT(id int) (string, time.Time, error) {
 
 	return ss, expirationTime, err
 }
+
+// ValidateJWT validates a JWT token
+func (a *ApiJWT) ValidateJWT(token string) (*CustomClaims, string, error) {
+
+	if token == "" {
+		return nil, "", jwt.ErrSignatureInvalid
+	}
+	// remove the Bearer prefix
+	if len(token) > 6 && token[:7] == "Bearer " {
+		token = token[7:]
+	}
+
+	key := viper.GetString("APP_KEY")
+	mySigningKey := []byte(key)
+
+	t, err := jwt.ParseWithClaims(token, &CustomClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return mySigningKey, nil
+	})
+
+	if err != nil {
+		return nil, "", err
+	}
+
+	claims, ok := t.Claims.(*CustomClaims)
+	if !ok {
+		return nil, "", err
+	}
+
+	return claims, token, nil
+}
